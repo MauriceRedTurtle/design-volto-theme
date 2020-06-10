@@ -64,7 +64,7 @@ const extendedBlockRenderMap = defaultSettings.extendedBlockRenderMap.update(
   (element = 'p') => element,
 );
 
-const blockStyleFn = contentBlock => {
+const blockStyleFn = (contentBlock) => {
   let r = defaultSettings.blockStyleFn(contentBlock);
 
   if (!r) {
@@ -171,6 +171,7 @@ export const settings = {
   isMultilingual: false,
   supportedLanguages: ['it'],
   defaultLanguage: 'it',
+  devProxyToApiPath: 'http://localhost:9080/Plone',
 };
 
 export const views = {
