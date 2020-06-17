@@ -33,3 +33,4 @@ export UOView from './View/UOView';
 export PersonaView from './View/PersonaView';
 export ServizioView from './View/ServizioView';
 export PaginaArgomentoView from './View/PaginaArgomentoView';
+// export PaginaArgomentoViewNoBlocks from './View/PaginaArgomentoViewNoBlocks';

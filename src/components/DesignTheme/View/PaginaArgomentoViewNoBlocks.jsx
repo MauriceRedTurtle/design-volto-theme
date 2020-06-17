@@ -30,7 +30,7 @@ const messages = defineMessages({
     id: 'box_aiuto',
     defaultMessage: 'Ulteriori informazioni',
   },
-  related_servizio: {
+  related_services: {
     id: 'related_services',
     defaultMessage: 'Servizi',
   },
@@ -60,6 +60,7 @@ const messages = defineMessages({
  */
 const PaginaArgomentoViewNoBlocks = ({ content }) => {
   const intl = useIntl();
+
   return (
     <>
       <div className="container px-4 my-4 uo-view">
@@ -127,7 +128,7 @@ const PaginaArgomentoViewNoBlocks = ({ content }) => {
               >
                 <h4>{intl.formatMessage(messages.related_services)}</h4>
                 <div className="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                  {content.related_servizio.map((item, i) => (
+                  {content.related_services.map((item, i) => (
                     <GenericCard
                       show_icon={null}
                       key={item['@id']}

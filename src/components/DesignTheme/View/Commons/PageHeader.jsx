@@ -54,7 +54,8 @@ const messages = defineMessages({
   },
 });
 
-const PageHeader = props => {
+const PageHeader = (props) => {
+  console.log(props.content);
   const intl = useIntl();
   return (
     <div className="row">
@@ -158,7 +159,7 @@ const PageHeader = props => {
               </h6>
               {props.content.tassonomia_argomenti.map((item, i) => (
                 <a
-                  href="https://www.google.it"
+                  href={flattenToAppURL(item['@id'])}
                   key={item.token}
                   title={item.title}
                 >
