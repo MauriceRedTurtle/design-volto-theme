@@ -17,6 +17,7 @@ import { Gallery } from './Commons';
 import { Metadata } from './Commons';
 import { NewsCard } from './Commons';
 import { GenericCard } from './Commons';
+import { checkEmptyRichText } from './ViewUtils';
 
 const messages = defineMessages({
   role_bio: {
@@ -281,7 +282,7 @@ const PersonaView = ({ content }) => {
               ''
             )}
             {!content.data_conclusione_incarico &&
-            content?.items?.some(e => e.id === 'foto-e-attivita-politica') ? (
+            content?.items?.some((e) => e.id === 'foto-e-attivita-politica') ? (
               <Gallery
                 content={content}
                 folder_name={'foto-e-attivita-politica'}
@@ -321,7 +322,7 @@ const PersonaView = ({ content }) => {
             ) : (
               ''
             )}
-            {content?.items?.some(e => e.id === 'compensi') && (
+            {content?.items?.some((e) => e.id === 'compensi') && (
               <Attachments
                 content={content}
                 folder_name={'compensi'}
@@ -329,7 +330,7 @@ const PersonaView = ({ content }) => {
               />
             )}
             {content?.items?.some(
-              e => e.id === 'importi-di-viaggio-e-o-servizi',
+              (e) => e.id === 'importi-di-viaggio-e-o-servizi',
             ) && (
               <Attachments
                 content={content}
@@ -339,14 +340,16 @@ const PersonaView = ({ content }) => {
                 )}
               />
             )}
-            {content?.items?.some(e => e.id === 'altre-cariche') && (
+            {content?.items?.some((e) => e.id === 'altre-cariche') && (
               <Attachments
                 content={content}
                 folder_name={'altre-cariche'}
                 folder_title={intl.formatMessage(messages.altre_cariche)}
               />
             )}
-            {content?.items?.some(e => e.id === 'situazione-patrimoniale') && (
+            {content?.items?.some(
+              (e) => e.id === 'situazione-patrimoniale',
+            ) && (
               <Attachments
                 content={content}
                 folder_name={'situazione-patrimoniale'}
@@ -356,7 +359,7 @@ const PersonaView = ({ content }) => {
               />
             )}
             {content?.items?.some(
-              e => e.id === 'dichiarazione-dei-redditi',
+              (e) => e.id === 'dichiarazione-dei-redditi',
             ) && (
               <Attachments
                 content={content}
@@ -366,7 +369,7 @@ const PersonaView = ({ content }) => {
                 )}
               />
             )}
-            {content?.items?.some(e => e.id === 'spese-elettorali') && (
+            {content?.items?.some((e) => e.id === 'spese-elettorali') && (
               <Attachments
                 content={content}
                 folder_name={'spese-elettorali'}
@@ -374,7 +377,7 @@ const PersonaView = ({ content }) => {
               />
             )}
             {content?.items?.some(
-              e => e.id === 'valutazione-situazione-patrimoniale',
+              (e) => e.id === 'valutazione-situazione-patrimoniale',
             ) && (
               <Attachments
                 content={content}

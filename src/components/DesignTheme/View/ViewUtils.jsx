@@ -11,3 +11,9 @@ export const readingTime = (text) => {
 
 export const getHTMLString = (content, locale) =>
   renderToString(<IntlProvider locale={locale}>{content}</IntlProvider>);
+
+export const checkEmptyRichText = (content) => {
+  var tag = document.createElement('div');
+  tag.innerHTML = content;
+  return tag.innerText;
+};
