@@ -141,9 +141,9 @@ const PersonaView = ({ content }) => {
             {content.data_insediamento && !content.data_conclusione_incarico ? (
               <p>
                 <strong>
-                  {intl.formatMessage(messages.data_insediamento)} :
+                  {intl.formatMessage(messages.data_insediamento)}:
                 </strong>
-                {moment(content.data_insediamento).format('DD-MM-Y')}
+                {` ${moment(content.data_insediamento).format('DD-MM-Y')}`}
               </p>
             ) : (
               ''
@@ -153,7 +153,9 @@ const PersonaView = ({ content }) => {
                 <strong>
                   {intl.formatMessage(messages.data_conclusione_incarico)}:
                 </strong>
-                {moment(content.data_conclusione_incarico).format('DD-MM-Y')}
+                {` ${moment(content.data_conclusione_incarico).format(
+                  'DD-MM-Y',
+                )}`}
               </p>
             ) : (
               ''
