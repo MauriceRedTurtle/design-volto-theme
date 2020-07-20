@@ -28,7 +28,7 @@ const messages = defineMessages({
 const ArgomentoTitleView = ({ data, properties }) => {
   const intl = useIntl();
   return (
-    <>
+    <div className="block">
       <div className="ArgomentoTitleWrapper">
         <div className="title-description-wrapper">
           <h1>{properties.title}</h1>
@@ -60,7 +60,7 @@ const ArgomentoTitleView = ({ data, properties }) => {
       ) : (
         ''
       )}
-    </>
+    </div>
   );
 };
 /**

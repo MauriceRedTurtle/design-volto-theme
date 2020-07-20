@@ -82,6 +82,9 @@
       color: $secondary;
     }
   }
+  h1:last-child {
+    margin: auto;
+  }
 }
 
 @include media-breakpoint-down(sm) {
