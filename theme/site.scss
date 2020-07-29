@@ -26,7 +26,16 @@
 @import 'ItaliaTheme/Blocks/completeBlockLinkstemplate';
 @import 'ItaliaTheme/Blocks/photogallerytemplate';
 @import 'ItaliaTheme/Blocks/inevidencetemplate';
+@import 'ItaliaTheme/Blocks/argumentlistingtemplateReggio';
 @import 'ItaliaTheme/Views/uo';
 @import 'ItaliaTheme/Views/common';
 @import 'ItaliaTheme/Blocks/argumentlistingtemplate';
-@import 'ItaliaTheme/Views/paginaArgomentoView'
+@import 'ItaliaTheme/Views/paginaArgomentoView';
+
+#page-document > h2 {
+  margin: 48px 0 23px!important;
+}
+
+#page-document > h3 {
+  margin: 48px 0 23px!important;
+}

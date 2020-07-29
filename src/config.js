@@ -40,6 +40,7 @@ import CompleteBlockLinksTemplate from '@italia/components/ItaliaTheme/Blocks/Li
 import PhotogalleryTemplate from '@italia/components/ItaliaTheme/Blocks/Listing/PhotogalleryTemplate';
 import InEvidenceTemplate from '@italia/components/ItaliaTheme/Blocks/Listing/InEvidenceTemplate';
 import ArgumentListingTemplate from  '@italia/components/ItaliaTheme/Blocks/Listing/ArgumentListingTemplate';
+import ArgumentListingTemplateReggio from '@italia/components/ItaliaTheme/Blocks/Listing/ArgumentListingTemplateReggio';
 
 import { rssBlock as customRssBlock } from '@italia/addons/volto-rss-block';
 import CardWithImageRssTemplate from '@italia/components/ItaliaTheme/Blocks/RssBlock/CardWithImageRssTemplate';
@@ -181,6 +182,10 @@ const customBlocks = {
       argumentListingTemplate: {
         label: 'Lista argomenti',
         template: ArgumentListingTemplate,
+      },
+      argumentListingTemplateReggio: {
+        label: 'Lista argomenti reggio',
+        template: ArgumentListingTemplateReggio,
       }
     },
   },
