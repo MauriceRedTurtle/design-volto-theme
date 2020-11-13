@@ -11,7 +11,8 @@
     "src/addons/volto-venue",
     "src/addons/volto-subblocks",
     "src/addons/volto-dropdownmenu",
-    "src/addons/volto-subsites"
+    "src/addons/volto-subsites",
+    "src/addons/volto-slate"
   ],
   "addons": [
     "volto-cookie-banner",
@@ -20,7 +21,8 @@
     "volto-venue",
     "volto-subblocks",
     "volto-dropdownmenu",
-    "volto-subsites"
+    "volto-subsites",
+    "volto-slate"
   ],
   "scripts": {
     "start": "razzle start",
@@ -128,7 +130,12 @@
     "design-react-kit": "3.1.3",
     "react-dropzone": "11.0.1",
     "react-slick": "0.21.0",
+    "slate": "0.59.0",
+    "slate-deep-table": "0.9.7",
+    "slate-hyperscript": "0.59.0",
+    "slate-react": "0.59.0",
     "slick-carousel": "1.8.1",
+    "styled-components": "5.2.1",
     "typeface-lora": "0.0.72",
     "typeface-roboto-mono": "0.0.75",
     "typeface-titillium-web": "0.0.72",

@@ -31,5 +31,10 @@
   },
   "volto-subsites": {
     "url": "git@github.com:collective/volto-subsites.git"
+  },
+  "volto-slate": {
+    "package": "@italia/addons/volto-slate",
+    "path": "src",
+    "url": "git@github.com:eea/volto-slate.git"
   }
 }

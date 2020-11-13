@@ -465,6 +465,10 @@ export const widgets = {
     ),
     data_insediamento: props => <DatetimeWidget {...props} dateOnly={true} />,
   },
+  widget: {
+    ...config.widgets.widget,
+    // richtext: SlateRichTextWidget
+  }
 };
 
 const customBlocksOrder = [
