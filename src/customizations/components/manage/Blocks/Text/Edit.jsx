@@ -178,6 +178,20 @@ class Edit extends Component {
       <>
         <Editor
           initialValue={this.state?.editorState}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              let isSoftNewlineEvent = e.shiftKey;
+              if (isSoftNewlineEvent) {
+                //do nothig. Tiny adds new line inside editor by default
+              } else {
+                if (!disableNewBlocks) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  this.addNextBlock();
+                }
+              }
+            }
+          }}
           init={{
             inline_styles: true,
             inline: true,
@@ -186,7 +200,6 @@ class Edit extends Component {
             readonly: !this.props.editable,
             setup: function (editor) {
               editor.on('keydown', function (e) {
-                console.log(e);
                 if (e.keyCode === 13) {
                   let isSoftNewlineEvent = e.shiftKey;
                   if (isSoftNewlineEvent) {
@@ -194,9 +207,6 @@ class Edit extends Component {
                   } else {
                     if (!disableNewBlocks) {
                       e.preventDefault();
-                      e.stopPropagation();
-                      console.log(this);
-                      this.addNextBlock();
                     }
                   }
                 }
