@@ -7,11 +7,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { Optional } from '@ephox/katamari';
 import { Form, Label, TextArea } from 'semantic-ui-react';
 import { map } from 'lodash';
 import { defineMessages, injectIntl } from 'react-intl';
 import { FormFieldWrapper } from '@plone/volto/components';
 import { Editor } from '@tinymce/tinymce-react';
+import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
+import LinkForm from './TinymceVoltoLink/LinkForm';
+import {
+  link,
+  getAnchorText,
+  isOnlyTextSelected,
+} from './TinymceVoltoLink/TinyUtils';
 
 const messages = defineMessages({
   default: {
@@ -97,6 +105,7 @@ class TinymceWidget extends Component {
      * On change handler
      */
     onChange: PropTypes.func,
+    openObjectBrowser: PropTypes.func.isRequired,
   };
 
   /**
@@ -122,6 +131,7 @@ class TinymceWidget extends Component {
     super(props);
 
     this.state = { editorState: props.value?.data || '' };
+    this.linkformRef = React.createRef();
 
     this.schema = {
       fieldsets: [
@@ -155,6 +165,66 @@ class TinymceWidget extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    if (!window.tinymce?.PluginManager?.get('voltolink')) {
+      window.tinymce?.PluginManager?.add('voltolink', function (editor) {
+        const setLink = (url, editor) => {
+          const attachState = { href: value, attach: () => {} };
+          const onlyText = isOnlyTextSelected(editor);
+          const text = onlyText
+            ? Optional.some(getAnchorText(editor.selection, anchor))
+                .filter((t) => t.length > 0)
+                .or(Optional.from(value))
+            : Optional.none();
+          link(editor, attachState, {
+            href: url,
+            text,
+            title: Optional.none(),
+            rel: Optional.none(),
+            target: Optional.none(),
+            class: Optional.none(),
+          });
+        };
+
+        let linkformcontainer = document.createElement('div');
+        linkformcontainer.setAttribute('id', 'linkform');
+        document.body.appendChild(linkformcontainer);
+
+        const linkform = ReactDOM.render(
+          React.createElement(LinkForm, { setLink: setLink(editor, url) }),
+          document.getElementById('linkform'),
+        );
+
+        // Add a button that opens a window
+        editor.ui.registry.addButton('voltolink', {
+          text: 'Link',
+          onAction: function () {
+            // show form
+            linkform.show();
+          },
+        });
+
+        // Adds a menu item, which can then be included in any menu via the menu/menubar configuration
+        editor.ui.registry.addMenuItem('voltolink', {
+          text: 'Link',
+          onAction: function () {
+            // show form
+            linkform.show();
+          },
+        });
+
+        return {
+          getMetadata: function () {
+            return {
+              name: 'Volto link',
+              url: 'http://exampleplugindocsurl.com',
+            };
+          },
+        };
+      });
+    }
   }
 
   /**
@@ -271,6 +341,7 @@ class TinymceWidget extends Component {
 
 export default compose(
   injectIntl,
+  withObjectBrowser,
   connect(
     (state, props) => ({
       token: state.userSession.token,
