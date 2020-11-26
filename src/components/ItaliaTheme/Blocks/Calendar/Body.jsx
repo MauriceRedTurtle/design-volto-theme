@@ -21,9 +21,27 @@ const Body = ({ data, inEditMode, path, onChangeBlock }) => {
 
   const [activePage, setActivePage] = useState(0);
   const [monthName, setMonthName] = useState(getMonth);
+  const [calendarItems, setCalendarItems] = useState([]);
+  const [slidesToScroll, setSlidesToScroll] = useState(data.b_size || 4);
 
-  const querystringResults = useSelector(
-    (state) => state.calendarSearch,
+  useSelector(
+    (state) => {
+      // Check if the current value and the new value are the same
+      if(state.calendarSearch.loaded && 
+         !(calendarItems.length === state.calendarSearch.items.length && 
+         calendarItems.every((value, index) => value === state.calendarSearch.items[index]))){
+        
+        // If the items is not divisible by 4, we must fill the array with the missing elements
+        const module = state.calendarSearch.items?.length % (slidesToScroll)
+        if(module > 0) {
+          // "slidesToScroll - module" 4 is the number of elements needed to make the array divisible by "slidesToScroll"
+          for(let i = 0; i < slidesToScroll - module; i++) {
+            state.calendarSearch.items.push(null)
+          }
+        }
+        setCalendarItems(state.calendarSearch.items)
+      }
+    },
   );
 
   const dispatch = useDispatch();
@@ -39,6 +57,13 @@ const Body = ({ data, inEditMode, path, onChangeBlock }) => {
         ...data,
         [data]: data,
       });
+    }
+    if(screen.width > 1024) {
+      setSlidesToScroll(data.b_size || 4)
+    } else if (screen.width <= 1024 && screen.width > 600) {
+      setSlidesToScroll(2)
+    } else {
+      setSlidesToScroll(1)
     }
   }, []);
 
@@ -56,7 +81,7 @@ const Body = ({ data, inEditMode, path, onChangeBlock }) => {
   // update the mounth name when the call to getCalendarResults is ended
   React.useEffect(() => {
     setMonthName(getMonth);
-  },[querystringResults]);
+  },[calendarItems]);
 
   const settings = {
     dots: true,
@@ -70,14 +95,6 @@ const Body = ({ data, inEditMode, path, onChangeBlock }) => {
     lazyLoad: true,
     afterChange: (current, next) => setActivePage(current),
     responsive: [
-      {
-        breakpoint: 1025,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          dots: true,
-        },
-      },
       {
         breakpoint: 1024,
         settings: {
@@ -97,11 +114,14 @@ const Body = ({ data, inEditMode, path, onChangeBlock }) => {
   };
 
   const getMonth = () => {
-    const startIndex = activePage * (data.b_size || 4);
-    const months = querystringResults?.items?.slice(activePage, startIndex + (+data.b_size || 4)).reduce((total, date) => {
-      const month = moment(date).format('MMMM');
-      if(!total.includes(month)) {
-        total.push(month);
+    const currentActivePage = (activePage === 0 ? activePage : activePage )
+    const startIndex = currentActivePage + (+slidesToScroll);
+    const months = calendarItems?.slice(currentActivePage, startIndex).reduce((total, date) => {
+      if(date) {
+        const month = moment(date).format('MMMM');
+        if(!total.includes(month)) {
+          total.push(month);
+        }
       }
       return total;
     },[]);
@@ -126,11 +146,12 @@ const Body = ({ data, inEditMode, path, onChangeBlock }) => {
           <div className="calendar-body">
             {data.query?.length > 0 ?
               <Slider {...settings}>
-                {querystringResults?.items?.map((day, index) => (
+                {calendarItems?.map((day, index) => {
+                  return (
                   <div key={index} className="body">
                     <Item day={day} data={data} path={path} inEdit={inEditMode}/>
                   </div>
-                ))}
+                )})}
               </Slider>
               : 
                 inEditMode && <span>{intl.formatMessage(messages.insert_filter)}</span>
