@@ -15,6 +15,7 @@ import TextInput from '@italia/components/TextInput';
 import SearchUtils from '@italia/components/ItaliaTheme/Search/utils';
 import SelectInput from '@italia/components/SelectInput/SelectInput';
 import Collapse from '@italia/components/Collapse';
+import DangerouslySetHtmlContent from '@italia/components/DangerouslySetHtmlContent/DangerouslySetHtmlContent';
 
 export {
   LanguageSelector,
@@ -23,4 +24,5 @@ export {
   SelectInput,
   SearchUtils,
   Collapse,
+  DangerouslySetHtmlContent,
 };
